@@ -3,7 +3,9 @@ import { persist } from 'zustand/middleware'
 
 interface TodoStore {
   todos: string[];
-  addTodo: (todo: string) => void;
+  category: 'work', 'school', 'freetime';
+  setCategory: (category: string) => void;
+  addTodo: (todo: {}) => void;
   removeTodo: (index: number) => void;
 }
 

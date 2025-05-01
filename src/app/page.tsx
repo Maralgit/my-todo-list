@@ -24,6 +24,11 @@ export default function Home() {
             onChange={(e) => setText(e.target.value)}
             placeholder="Todo бичих..."
           />
+          <select value={category} onChange={(e) => setCategory(e.target.value)}>
+            <option value="work">Work</option>
+            <option value="school">School</option>
+            <option value="free-time">Free Time</option>
+          </select>
           <button onClick={handleAdd}>Add</button>
 
           <ul className='space-y-3 w-50'>
