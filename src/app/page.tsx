@@ -6,6 +6,7 @@ import useTodoStore from '../store/todoStore';
 
 export default function Home() {
   const [text, setText] = useState<string>('');
+  const [category, setCategory] =useTodoStore();
   const { todos, addTodo, removeTodo } = useTodoStore();
 
   const handleAdd = () => {
