@@ -1,11 +1,12 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware'
 
+
 interface TodoStore {
   todos: string[];
-  category: 'work', 'school', 'freetime';
-  setCategory: (category: string) => void;
-  addTodo: (todo: {}) => void;
+  category: 'work'|'school'|'freetime';
+  setCategory: (category: 'work'|'school'|'freetime') => void;
+  addTodo: (todo: string) => void;
   removeTodo: (index: number) => void;
 }
 
@@ -13,7 +14,10 @@ const useTodoStore = create<TodoStore>()(
   persist(
     (set) => ({
       todos: [],
-      addTodo: (todo: string) => {
+      category: 'work',
+      setCategory: (category) => set({ category }),
+
+      addTodo: (todo:string) => {
         if (!todo.trim()) return;
         set((state) => ({ todos: [...state.todos, todo] }));
       },
@@ -25,7 +29,7 @@ const useTodoStore = create<TodoStore>()(
     }),
     {
       name: 'storage',
-      partialize: (state) => ({todos: state.todos}),
+      partialize: (state) => ({todos: state.todos, category: state.category}),
     }
   )
 );

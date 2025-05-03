@@ -6,12 +6,13 @@ import useTodoStore from '../store/todoStore';
 
 export default function Home() {
   const [text, setText] = useState<string>('');
-  const [category, setCategory] =useTodoStore();
+  const {category, setCategory} =useTodoStore();
   const { todos, addTodo, removeTodo } = useTodoStore();
 
   const handleAdd = () => {
     addTodo(text);
     setText('');
+    setCategory(category);
   };
 
   return (
@@ -25,23 +26,23 @@ export default function Home() {
             onChange={(e) => setText(e.target.value)}
             placeholder="Todo бичих..."
           />
-          <select value={category} onChange={(e) => setCategory(e.target.value)}>
-            <option value="work">Work</option>
-            <option value="school">School</option>
-            <option value="free-time">Free Time</option>
+          <select className='pl-5 text-white' value={category} onChange={(e) => setCategory(e.target.value)}>
+            <option className='text-black' value="work">Work</option>
+            <option className='text-black' value="school">School</option>
+            <option className='text-black' value="free-time">Free Time</option>
           </select>
-          <button onClick={handleAdd}>Add</button>
+          <button className='pl-5' onClick={handleAdd}>Add</button>
 
-          <ul className='space-y-3 w-50'>
+          <ul className='space-y-3 w-100'>
             {todos.map((todo, i) => (
               <li key={i} className='flex flex-col-3 border p-3 rounded'>
-                <div className='w-15'>
+                <div className='w-60'>
                   {todo} 
                 </div>
-                <div className='w-20'>
-                  {todo} 
+                <div className={`w-20 ${category === "work" ? "bg-red-500 rounded-lg" : category === "school" ? "bg-blue-500 rounded-lg" : "bg-green-500 rounded-lg"} text-center`}>
+                  {category} 
                 </div>
-                <div className='w-15'>
+                <div className='w-15 text-center'>
                   <button onClick={() => removeTodo(i)}>❌</button>
                 </div>
               </li>
